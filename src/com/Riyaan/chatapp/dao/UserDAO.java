@@ -20,7 +20,7 @@ public class UserDAO {
 		try {
 			con= CommonDAO.createConnection();
 			pstmt = con.prepareStatement(SQL);
-			pstmt.setString(1, userDTO.getUserid());
+			pstmt.setString(1, userDTO.getUserid());//get the value from the dto
 			String encryptedPas=Encryption.passwordEncrypt(new String(userDTO.getPassword()));
 			pstmt.setString(2, encryptedPas);
 			rs=pstmt.executeQuery();
@@ -47,8 +47,8 @@ public class UserDAO {
 	
 	//public int add(String userid, String password, byte age, String city, String phone , String email, String country, String state, String areaCode, String stdCode){
 	public int add(UserDTO userDTO) throws ClassNotFoundException, SQLException, Exception {	
-//		System.out.println("Rec "+userDTO.getUserid()+" "+userDTO.getEmail()+" "+userDTO.getPhoneno()+" "+userDTO.getAddress()+" "+userDTO.getPassword());
-		System.out.println("Rec "+userDTO.getUserid()+" "+userDTO.getPassword());
+   	System.out.println("Rec "+userDTO.getUserid()+" "+userDTO.getEmail()+" "+userDTO.getPhoneno()+" "+userDTO.getAddress()+" "+userDTO.getPassword());
+	//	System.out.println("Rec "+userDTO.getUserid()+" "+userDTO.getPassword());
 		Connection connection = null;
 		Statement stmt = null; // query
 		try { // Guarded region
@@ -56,8 +56,8 @@ public class UserDAO {
 		// Step-2 We do a Query
 		stmt = connection.createStatement();
 		// insert into users (userid, password) values('ram','ram123');
-		//int record = stmt.executeUpdate("insert into users (userid,email,phoneno,address, password) values('"+userDTO.getUserid()+"','"+userDTO.getEmail()+"','"+userDTO.getPhoneno()+"','"+userDTO.getAddress()+"','"+Encryption.passwordEncrypt(new String(userDTO.getPassword()))+"')"); // Insert, Delete, Update
-		int record = stmt.executeUpdate("insert into users (userid, password) values('"+userDTO.getUserid()+"','"+Encryption.passwordEncrypt(new String(userDTO.getPassword()))+"')"); // Insert, Delete, Update
+		int record = stmt.executeUpdate("insert into users (userid,password,email,phoneno,city) values('"+userDTO.getUserid()+"','"+Encryption.passwordEncrypt(new String(userDTO.getPassword()))+"','"+userDTO.getEmail()+"','"+userDTO.getPhoneno()+"','"+userDTO.getAddress()+"')"); // Insert, Delete, Update
+		//int record = stmt.executeUpdate("insert into users (userid, password) values('"+userDTO.getUserid()+"','"+Encryption.passwordEncrypt(new String(userDTO.getPassword()))+"')"); // Insert, Delete, Update
 		return record;
 		}
 		finally { // Always execute (Resource Clean)

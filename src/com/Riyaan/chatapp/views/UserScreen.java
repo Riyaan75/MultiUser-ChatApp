@@ -1,5 +1,5 @@
 package com.Riyaan.chatapp.views;
-
+//import com.Riyaan.chatapp.utils.*;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 
 import com.Riyaan.chatapp.dao.UserDAO;
 import com.Riyaan.chatapp.dto.UserDTO;
+import com.Riyaan.chatapp.utils.UserInfo;
 
 public class UserScreen extends JFrame{
 	private JTextField useridtxt;
@@ -35,11 +36,16 @@ public class UserScreen extends JFrame{
 		String userid = useridtxt.getText();
 		//getText method f0r string is now old there character array getPassword is used
 				char[] password = passwordField.getPassword();
-				UserDTO userDTO = new UserDTO(userid , password);
+				String email = textField_1.getText();
+				String phoneno = textField_2.getText();
+				String city = textField_3.getText();
+				//UserDAO userDAO = new UserDAO();
+				UserDTO userDTO = new UserDTO(userid , password,email,phoneno,city);
 				try {
 					String message  = "";
 					if(userDAO.isLogin(userDTO)) {
 							message = "Welcome "+userid;
+							UserInfo.USER_NAME = userid;
 							JOptionPane.showMessageDialog(this, message);
 							setVisible(false);
 							//dispose will finish the function from memory
@@ -71,8 +77,14 @@ public class UserScreen extends JFrame{
 		String userid = useridtxt.getText();
 		//getText method f0r string is now old there character array getPassword is used
 		char[] password = passwordField.getPassword();
+		String email = textField_1.getText();
+//		if(!isvalidEmail(email)) {
+//			System.out.println("wrong email");
+//		}
+		String phoneno = textField_2.getText();
+		String city = textField_3.getText();
 		//UserDAO userDAO = new UserDAO();
-		UserDTO userDTO = new UserDTO(userid , password);
+		UserDTO userDTO = new UserDTO(userid , password,email,phoneno,city);//crete object of DTO which contains user info from the dao
 		try {
 		int result = userDAO.add(userDTO);
 		if(result>0) {
@@ -111,10 +123,6 @@ public class UserScreen extends JFrame{
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(303, 11, 175, 75);
 		getContentPane().add(lblNewLabel);
-		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(0, 0, 45, 13);
-		getContentPane().add(lblNewLabel_4);
 		
 		useridtxt = new JTextField();
 		useridtxt.setBounds(405, 100, 315, 33);
@@ -158,7 +166,7 @@ public class UserScreen extends JFrame{
 		loginbt.setBounds(276, 359, 132, 41);
 		getContentPane().add(loginbt);
 		setBackground(Color.WHITE);
-		setSize(833,440);
+		setSize(1027,711);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -193,7 +201,7 @@ public class UserScreen extends JFrame{
 		getContentPane().add(textField_3);
 		textField_3.setColumns(10);
 		setBackground(Color.WHITE);
-		setSize( 833, 440);
+		setSize( 933, 540);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
